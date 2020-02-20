@@ -70,5 +70,114 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Shaked!!!", Toast.LENGTH_SHORT).show();
             }
         });
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_account)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+        SensorGyro();
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
+    }
+    private void SensorGyro() {
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        SensorEventListener gyrolistener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                if (event.values[1] < 0) {
+                    finish();
+                } else if (event.values[1] > 0) {
+
+                }
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        };
+        if (sensor != null){
+            sensorManager.registerListener(gyrolistener, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+        }
+        else {
+            Toast.makeText(this, "No Sensor Found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void temperatureSensor() {
+        sensorManager = (SensorManager) MainActivity.this.getSystemService(SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+        SensorEventListener temperatureListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float temp = event.values[0];
+                tvTemperature.setText(temp + "°C");
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        };
+
+        if (sensor != null){
+            sensorManager.registerListener(temperatureListener, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+        }
+        else {
+            Toast.makeText(MainActivity.this, "No Sensor Found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void humiditySensor() {
+        sensorManager = (SensorManager) MainActivity.this.getSystemService(SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        SensorEventListener temperatureListener = new SensorEventListener() {
+            @Override
+            public void onSensorChanged(SensorEvent event) {
+                float humidity = event.values[0];
+                String humidityLevel;
+
+                if(humidity <= 30){
+                    humidityLevel = "Low Humidity";
+                }
+                else if(humidity > 30 && humidity < 60){
+                    humidityLevel = "Moderate Humidity";
+                }
+                else {
+                    humidityLevel = "High Humidity";
+                }
+
+                tvHumidity.setText(humidityLevel);
+            }
+
+            @Override
+            public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+            }
+        };
+
+        if (sensor != null){
+            sensorManager.registerListener(temperatureListener, sensor, sensorManager.SENSOR_DELAY_NORMAL);
+        }
+        else {
+            Toast.makeText(MainActivity.this, "No Sensor Found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
