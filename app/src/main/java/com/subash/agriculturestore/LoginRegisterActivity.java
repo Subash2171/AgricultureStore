@@ -23,5 +23,23 @@ public class LoginRegisterActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_register);
 
+        btnOpenRegisterFragment = findViewById(R.id.btnOpenRegisterFragment);
+        btnOpenLoginFragment = findViewById(R.id.btnOpenLoginFragment);
 
+        btnOpenRegisterFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(LoginRegisterActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnOpenLoginFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(LoginRegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 }
