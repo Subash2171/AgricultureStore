@@ -53,5 +53,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+            @Override
+            public void onShake(int count) {
+                /*
+                 * The following method, "handleShakeEvent(count):" is a stub //
+                 * method you would use to setup whatever you want done once the
+                 * device has been shook.
+                 */
+                tvShake.setText("Shake Action is just detected!!");
+                Toast.makeText(MainActivity.this, "Shaked!!!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
