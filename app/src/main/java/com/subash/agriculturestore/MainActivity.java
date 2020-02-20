@@ -45,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
         tvShake = findViewById(R.id.tvShake);
         btn = findViewById(R.id.btn);
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ServiceActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
