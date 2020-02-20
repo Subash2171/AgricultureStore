@@ -34,10 +34,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        tvTemperature = findViewById(R.id.tvtemperature);
+        tvHumidity = findViewById(R.id.tvhumidity);
+        tvShake = findViewById(R.id.tvShake);
+        btn = findViewById(R.id.btn);
+
 
     }
 }
