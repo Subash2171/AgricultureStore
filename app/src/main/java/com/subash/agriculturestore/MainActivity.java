@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvTemperature, tvHumidity;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    private ShakeDetector mShakeDetector;
 
     private TextView tvShake;
     private Button btn;
@@ -53,23 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // ShakeDetector initialization
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager
-                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mShakeDetector = new ShakeDetector();
-        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
-            @Override
-            public void onShake(int count) {
-                /*
-                 * The following method, "handleShakeEvent(count):" is a stub //
-                 * method you would use to setup whatever you want done once the
-                 * device has been shook.
-                 */
-                tvShake.setText("Shake Action is just detected!!");
-                Toast.makeText(MainActivity.this, "Shaked!!!", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -80,18 +63,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         SensorGyro();
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Add the following line to register the Session Manager Listener onResume
-        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
-    }
 
-    @Override
-    public void onPause() {
-        // Add the following line to unregister the Sensor Manager onPause
-        mSensorManager.unregisterListener(mShakeDetector);
-        super.onPause();
     }
     private void SensorGyro() {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
