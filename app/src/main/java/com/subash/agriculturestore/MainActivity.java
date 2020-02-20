@@ -41,16 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         tvTemperature = findViewById(R.id.tvtemperature);
         tvHumidity = findViewById(R.id.tvhumidity);
-        tvShake = findViewById(R.id.tvShake);
-        btn = findViewById(R.id.btn);
 
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,ServiceActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
 
         // Passing each menu ID as a set of Ids because each
