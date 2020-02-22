@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         SensorGyro();
     }
 
-    }
+
     private void SensorGyro() {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
