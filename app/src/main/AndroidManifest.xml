@@ -40,7 +40,6 @@
         <activity android:name=".ui.dashboard.Accelerometer" />
         <activity android:name=".ui.dashboard.Gyro" />
         <activity android:name=".ui.dashboard.Proximity" />
-        <activity android:name=".ui.dashboard.Acc" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
