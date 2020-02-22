@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.subash.agriculturestore">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"/>
-    <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true"/>
-<!--    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
+        android:required="true" />
+    <uses-permission
+        android:name="android.hardware.sensor.proximity"
+        android:required="true"/>
 
     <application
         android:allowBackup="true"
@@ -19,13 +28,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.dashboard.DashboardFragment"></activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
+
         <activity android:name=".LoginRegisterActivity" />
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.LoginActivity" />
-        <activity android:name=".Accelerometer" />
+        <activity android:name=".ui.dashboard.Accelerometer" />
+        <activity android:name=".ui.dashboard.Gyro" />
+        <activity android:name=".ui.dashboard.Proximity" />
+        <activity android:name=".ui.dashboard.Acc" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,9 +50,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"></activity>
-
+            android:label="@string/app_name" />
     </application>
-
 
 </manifest>
