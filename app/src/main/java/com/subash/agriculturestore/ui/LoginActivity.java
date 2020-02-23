@@ -1,12 +1,10 @@
 package com.subash.agriculturestore.ui;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
 import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -16,10 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-
 import com.subash.agriculturestore.MainActivity;
 import com.subash.agriculturestore.R;
 import com.subash.agriculturestore.bll.LoginBLL;
@@ -27,15 +21,10 @@ import com.subash.agriculturestore.strictmode.StrictMode;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private int id = 1;
     private TextView signUp_text;
     private EditText etPhone, etPassword;
     private Button btnLogin;
-    private NotificationManagerCompat notificationManagerCompat;
-    private CreateChannel createChannel;
-    private SensorEventListener event;
-    private SensorManager manager;
-    private Sensor sensor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             login();
+                login();
             }
         });
 
@@ -64,66 +53,33 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void login() {
-
+    private void login(){
 
         String phone = etPhone.getText().toString();
         String password = etPassword.getText().toString();
-
-        if (phone.equals("")) {
-            etPhone.setError("Email is required!!!");
-            etPhone.requestFocus();
-            return;
-        } else if (password.equals("")) {
-            etPassword.setError("Password is required!!!");
-            etPassword.requestFocus();
-            return;
-        }
-
-        ProgressDialog dialog = new ProgressDialog(this);
-        dialog.setMessage("Loading...");
-        dialog.setCancelable(false);
-        dialog.show();
-
 
         LoginBLL loginBLL = new LoginBLL();
 
         StrictMode.StrictMode();
         if (loginBLL.checkUser(phone, password)) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            showLoginNotification();
+            Toast.makeText(LoginActivity.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+//            test();
             finish();
         } else {
             Toast.makeText(LoginActivity.this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
         }
-
-
-    }
-    public void openRegister(View view) {
-        startActivity(new Intent(this, RegisterActivity.class));
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        manager.registerListener(event, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        manager.unregisterListener(event);
-    }
-
-    private void showLoginNotification() {
-        Notification notification = new NotificationCompat.Builder(this, CreateChannel.CHANNEL_1)
-                .setSmallIcon(R.drawable.logo)
-                .setContentTitle("User Log In")
-                .setContentText("You have successfully logged in!!!")
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .build();
-        notificationManagerCompat.notify(id, notification);
-        id++;
-
-    }
+//    private void test() {
+//        Notification notification = new NotificationCompat.Builder(this, CreateChannel.CHANNEL_1)
+//                .setSmallIcon(R.drawable.mlogo)
+//                .setContentTitle("User Log In")
+//                .setContentText("You have successfully logged in!!!")
+//                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+//                .build();
+//        notificationManagerCompat.notify(id, notification);
+//        id++;
+//    }
 }
